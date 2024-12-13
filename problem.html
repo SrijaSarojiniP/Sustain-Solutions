@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Issue Tracker</title>
+    <style>
+        body {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        h5, h2 {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Reported Issue</h2>
+
+        <form id="issueForm" onsubmit="submitForm(event)">
+            <div class="form-group">
+                <label for="username"><h5>Username: </h5></label>
+                <p class="form-control-static" id="usernameLabel">Loading...</p>
+            </div>
+
+            <div class="form-group">
+                <label for="issueHeading"><h5>Issue Heading:</h5></label>
+                <p class="form-control-static" id="issueHeadingLabel">Loading...</p>
+            </div>
+
+            <div class="form-group">
+                <label for="issueImage"><h5>Attach Photo: <br></h5>
+                <img src="contaminated.jpeg" alt="Default Image" class="img-thumbnail">
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="issueResolved" required>
+                <label class="form-check-label" for="issueResolved">Issue Resolved</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
+        
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Function to parse URL query parameters
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                username: params.get('username'),
+                issueHeading: params.get('issueHeading')
+            };
+        }
+
+        // Dynamically populate the issue details based on URL parameters
+        document.addEventListener('DOMContentLoaded', function() {
+            const { username, issueHeading } = getQueryParams();
+
+            // Set the username and issue heading dynamically
+            document.getElementById('usernameLabel').textContent = username || 'Unknown User';
+            document.getElementById('issueHeadingLabel').textContent = issueHeading || 'Unknown Issue';
+        });
+
+        // Submit form functionality
+        function submitForm(event) {
+            event.preventDefault();
+
+            const checkbox = document.getElementById('issueResolved');
+            if (checkbox.checked) {
+                alert('Issue resolved successfully!');
+            } else {
+                alert('Please resolve the issue before submitting.');
+            }
+        }
+    </script>
+</body>
+</html>
